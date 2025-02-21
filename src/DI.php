@@ -15,6 +15,11 @@ use Yii;
 class DI
 {
     /**
+    * @var array list of aliases ['alias' => ::class]
+    */
+    public static $aliases = [];
+    
+    /**
      * @var \Psr\Container\ContainerInterface|callable DI container instance.
      */
     private static $container;
