@@ -46,6 +46,12 @@ trait ResolvesActionViaDI
             $name = $param->getName();
 
             if ($param->hasType() && !$param->getType()->isBuiltin()) {
+                if (is_subclass_of($param->getType()->getName(), \CActiveRecord::class) && array_key_exists('id', $params)) {
+                    $arguments[$name] = ($param->getType()->getName())::model()->findByPk($params['id']);
+
+                    continue;
+                }
+                
                 if (DI::has($param->getType()->getName())) {
                     $arguments[$name] = DI::get($param->getType()->getName());
 
